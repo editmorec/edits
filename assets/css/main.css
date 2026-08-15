@@ -1,0 +1,928 @@
+/* ==========================================================================
+   1. CSS Variables (포트폴리오 전용 통합 설정)
+   ========================================================================== */
+:root {
+  /* Fonts */
+  --default-font: "Montserrat", "Noto Sans KR", sans-serif;
+  --heading-font: "Montserrat", "Noto Sans KR", sans-serif;
+  --nav-font: "Montserrat", "Noto Sans KR", sans-serif;
+
+  /* Global Colors */
+  --background-color: #ffffff;
+  --surface-color: #ffffff;
+  --contrast-color: #ffffff;
+
+  /* 포인트 및 텍스트 컬러 (3단계 위계 적용) */
+  --heading-color: #0F2943;
+  /* 1순위: 딥 네이비 (제목) */
+  --text-main: #4A6278;
+  /* 2순위: 다크 슬레이트 (본문) */
+  --text-muted: #8E9CA8;
+  /* 3순위: 연한 블루그레이 (보조) */
+  --accent-color: #6B8CA3;
+  /* 시그니처 포인트 컬러 */
+
+  /* Navigation Colors */
+  --nav-color: #0F2943;
+  --nav-hover-color: #6B8CA3;
+  --nav-dropdown-background-color: rgba(255, 255, 255, 0.98);
+  --nav-dropdown-color: #0F2943;
+  --nav-dropdown-hover-color: #6B8CA3;
+
+  /* Sidebar & Mobile Settings */
+  --sidebar-width: 320px;
+  --sidebar-bg-color: rgba(255, 255, 255, 0.95);
+  --sidebar-text-color: #0F2943;
+  --sidebar-hover-color: #6B8CA3;
+
+  --sidebar-font-size-lvl1: 16px;
+  --sidebar-font-size-lvl2: 14px;
+  --sidebar-font-size-lvl3: 14px;
+  --sidebar-font-weight-lvl1: 700;
+  --sidebar-font-weight-lvl2: 500;
+  --sidebar-font-weight-lvl3: 400;
+
+  --hamburger-icon-size: 32px;
+  --hamburger-icon-color: #0F2943;
+  --toggle-icon-size: 12px;
+}
+
+/* ==========================================================================
+   2. Base Styles
+   ========================================================================== */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--text-main);
+  background-color: var(--background-color);
+  font-family: var(--default-font);
+  overflow-x: hidden;
+  line-height: 1.8;
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: 0.5s;
+}
+
+a:hover {
+  color: color-mix(in srgb, var(--accent-color), transparent 25%);
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--heading-color);
+  font-family: var(--heading-font);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+p {
+  letter-spacing: -0.01em;
+}
+
+ul {
+  list-style: none !important;
+  padding: 0;
+  margin: 0;
+}
+
+/* ==========================================================================
+   3. Custom Utilities (시그니처 컬러 공통 클래스)
+   ========================================================================== */
+.text-signature {
+  color: var(--accent-color) !important;
+}
+
+.text-navy {
+  color: var(--heading-color) !important;
+}
+
+.btn-signature {
+  background-color: var(--heading-color);
+  color: #ffffff;
+  border: solid;
+  border-color: var(--accent-color);
+  transition: all 0.3s ease;
+}
+
+.btn-signature:hover {
+  background-color: var(--accent-color);
+  color: var(--heading-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(107, 140, 163, 0.4);
+}
+
+/* ==========================================================================
+   4. Header & Navigation
+   ========================================================================== */
+.header {
+  background-color: var(--surface-color);
+  padding: 15px 0;
+  transition: all 0.8s;
+  z-index: 9999;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.header .header-container {
+  padding: 0 40px;
+  background: transparent;
+  width: 100%;
+}
+
+@media (min-width: 1200px) {
+  .header .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.header .logo {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  height: 70px;
+}
+
+.header .logo img {
+  max-height: 100%;
+  margin-right: 8px;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header .logo .logo-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.header .logo .logo-default {
+  position: relative;
+  opacity: 0.7;
+  z-index: 1;
+}
+
+.header .logo:hover .logo-default {
+  opacity: 0;
+}
+
+.header .logo:hover .logo-hover {
+  display: inline-block;
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+@media (max-width: 1200px) {
+  .header {
+    padding: 15px 0;
+  }
+
+  .header .header-container {
+    padding: 0 20px;
+  }
+}
+
+/* Desktop Navigation */
+@media (min-width: 1200px) {
+  .navmenu ul {
+    display: flex;
+    align-items: center;
+  }
+
+  .navmenu li {
+    position: relative;
+    padding: 0 15px;
+  }
+
+  .navmenu a {
+    position: relative;
+    color: var(--nav-color);
+    padding: 10px 15px;
+    font-size: 16px;
+    font-family: var(--nav-font);
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .navmenu a:hover,
+  .navmenu .active {
+    color: var(--nav-hover-color);
+    transform: translateX(5px);
+  }
+
+  .navmenu a::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent-color);
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .navmenu a:hover::after,
+  .navmenu .active::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+
+  .navmenu a i {
+    font-size: 12px;
+    margin-left: 5px;
+    transition: 0.3s;
+  }
+
+  .navmenu .dropdown ul {
+    background: var(--nav-dropdown-background-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: block;
+    position: absolute;
+    visibility: hidden;
+    left: 0;
+    top: 130%;
+    opacity: 0;
+    transition: 0.5s;
+    border-radius: 8px;
+    z-index: 99;
+    padding: 15px 0;
+  }
+
+  .navmenu .dropdown ul li {
+    min-width: 220px;
+    padding: 0;
+  }
+
+  .navmenu .dropdown ul a {
+    padding: 12px 25px;
+    font-size: 15px;
+    color: var(--nav-dropdown-color);
+    transform: none;
+  }
+
+  .navmenu .dropdown ul a::after {
+    display: none;
+  }
+
+  .navmenu .dropdown ul a:hover,
+  .navmenu .dropdown ul .active:hover {
+    color: var(--nav-dropdown-hover-color);
+    transform: translateX(5px);
+  }
+
+  .navmenu .dropdown:hover>ul {
+    opacity: 1;
+    top: 100%;
+    visibility: visible;
+  }
+
+  .navmenu .dropdown .dropdown ul {
+    top: 0;
+    left: -100%;
+    visibility: hidden;
+  }
+
+  .navmenu .dropdown .dropdown:hover>ul {
+    opacity: 1;
+    top: 0;
+    left: -93%;
+    visibility: visible;
+  }
+}
+
+/* Mobile Sidebar Navigation */
+@media (max-width: 1199px) {
+  .mobile-nav-toggle {
+    color: var(--hamburger-icon-color);
+    font-size: var(--hamburger-icon-size);
+    cursor: pointer;
+    transition: color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 10000;
+  }
+
+  body.mobile-nav-active::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 9997;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  body.mobile-nav-active {
+    overflow: hidden;
+  }
+
+  .navmenu>ul {
+    position: fixed;
+    top: 0;
+    right: calc(-1 * var(--sidebar-width) - 20px);
+    width: var(--sidebar-width);
+    height: 100vh;
+    background-color: var(--sidebar-bg-color);
+    padding: 100px 30px 40px 30px;
+    margin: 0;
+    overflow-y: auto;
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+    z-index: 9998;
+    transition: right 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  body.mobile-nav-active .navmenu>ul {
+    right: 0;
+  }
+
+  .navmenu ul li {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .navmenu a {
+    position: relative;
+    color: var(--sidebar-text-color);
+    font-family: var(--nav-font);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    margin-bottom: 5px;
+    width: max-content;
+    transition: transform 0.5s cubic-bezier(0.3, 0, 0.1, 1), color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .navmenu>ul>li>a {
+    font-size: var(--sidebar-font-size-lvl1);
+    font-weight: var(--sidebar-font-weight-lvl1);
+  }
+
+  .navmenu .dropdown>ul>li>a {
+    font-size: var(--sidebar-font-size-lvl2);
+    font-weight: var(--sidebar-font-weight-lvl2);
+  }
+
+  .navmenu .dropdown .dropdown>ul>li>a {
+    font-size: var(--sidebar-font-size-lvl3);
+    font-weight: var(--sidebar-font-weight-lvl3);
+  }
+
+  .navmenu a:hover,
+  .navmenu .active {
+    color: var(--sidebar-hover-color);
+    transform: translateX(6px);
+  }
+
+  .navmenu a::after {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent-color);
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .navmenu a:hover::after,
+  .navmenu .active::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+
+  .navmenu a i {
+    font-size: var(--toggle-icon-size);
+    margin-left: 15px;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .navmenu .dropdown>ul {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding-left: 15px;
+    transition: max-height 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .navmenu .dropdown:hover>ul {
+    max-height: 800px;
+    opacity: 1;
+    padding-top: 5px;
+    padding-bottom: 15px;
+  }
+
+  .navmenu .dropdown:hover>a>i {
+    transform: rotate(180deg);
+  }
+
+  .navmenu .dropdown.active {
+    background-color: rgba(107, 140, 163, 0.05);
+  }
+
+  .navmenu .dropdown>ul::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: transparent;
+  }
+}
+
+/* ==========================================================================
+   5. Sections & Layout
+   ========================================================================== */
+section,
+.section {
+  background-color: var(--background-color);
+  padding: 60px 0;
+  scroll-margin-top: 90px;
+  overflow: clip;
+}
+
+@media (max-width: 1199px) {
+
+  section,
+  .section {
+    scroll-margin-top: 70px;
+  }
+}
+
+.breadcrumb-item {
+  padding-top: 90px;
+}
+
+.section-title {
+  text-align: center;
+  padding-bottom: 60px;
+  position: relative;
+}
+
+.section-title h2,
+.section-title h3 {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--heading-color);
+}
+
+.section-title h2 {
+  font-size: 42px;
+}
+
+.section-title p {
+  margin: 15px auto 0;
+  font-size: 16px;
+  max-width: 700px;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+/* Scroll Top Button */
+.scroll-top {
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  right: 15px;
+  bottom: -15px;
+  z-index: 99999;
+  background-color: color-mix(in srgb, var(--accent-color), transparent 10%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50px;
+  transition: all 0.6s;
+}
+
+.scroll-top i {
+  font-size: 24px;
+  color: var(--contrast-color);
+  line-height: 0;
+}
+
+.scroll-top:hover {
+  background-color: var(--heading-color);
+}
+
+.scroll-top.active {
+  visibility: visible;
+  opacity: 1;
+  bottom: 15px;
+}
+
+/* ==========================================================================
+   6. Components (Hero, Resume, Skills, Portfolio, Contact)
+   ========================================================================== */
+
+/* Hero Section */
+.hero {
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero .content h2 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.hero .content .lead {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: var(--text-main);
+}
+
+.hero .hero-image img {
+  border-radius: 20px;
+}
+
+/* Resume & Portfolio Filters */
+#resume .resume-navigation,
+.portfolio .portfolio-filters {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 60px !important;
+  border: none !important;
+  margin-bottom: 50px !important;
+  padding: 0;
+}
+
+#resume .nav-pills .nav-link,
+.portfolio .portfolio-filters li {
+  position: relative;
+  background: transparent !important;
+  border-radius: 0 !important;
+  border: none !important;
+  padding: 15px 5px !important;
+  color: var(--text-muted) !important;
+  font-family: var(--nav-font);
+  cursor: pointer;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), color 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+}
+
+#resume .nav-link:hover,
+#resume .nav-link.active,
+.portfolio .portfolio-filters li:hover,
+.portfolio .portfolio-filters li.filter-active {
+  color: var(--heading-color) !important;
+  transform: translateX(6px);
+}
+
+#resume .nav-link::after,
+.portfolio .portfolio-filters li::after {
+  content: "";
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent-color);
+  transform: translateX(-50%) scaleX(0);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#resume .nav-link:hover::after,
+#resume .nav-link.active::after,
+.portfolio .portfolio-filters li:hover::after,
+.portfolio .portfolio-filters li.filter-active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+@media (max-width: 768px) {
+
+  #resume .resume-navigation,
+  .portfolio .portfolio-filters {
+    gap: 20px !important;
+    flex-wrap: wrap;
+  }
+}
+
+/* Skills Section */
+.skills .skill-box {
+  background-color: var(--surface-color);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.skills .skill-box h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.progress {
+  background-color: color-mix(in srgb, var(--accent-color), transparent 85%);
+  border-radius: 50px;
+  height: 8px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+.progress .progress-bar {
+  background-color: var(--accent-color) !important;
+  height: 100%;
+  border-radius: 50px;
+  transition: 0.9s;
+}
+
+.skill-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skill-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(107, 140, 163, 0.15);
+  border-color: rgba(107, 140, 163, 0.3);
+}
+
+.skill-card img {
+  border-radius: 8px;
+}
+
+/* Portfolio Grid */
+.portfolio-card {
+  background: transparent;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.portfolio-card:hover {
+  transform: translateY(-10px);
+}
+
+.portfolio-image {
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 16/10;
+}
+
+.portfolio-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.portfolio-card:hover .portfolio-image img {
+  transform: scale(1.05);
+}
+
+.img-contain {
+  object-fit: contain !important;
+  padding: 15px;
+}
+
+/* Portfolio Details */
+.portfolio-details {
+  padding-top: 40px;
+}
+
+.portfolio-details .img-fluid {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.portfolio-details .position-sticky {
+  top: 100px;
+}
+
+.portfolio-details .portfolio-description h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  font-family: var(--nav-font);
+}
+
+.portfolio-details .portfolio-description p {
+  margin-bottom: 20px;
+  color: var(--text-main);
+}
+
+.portfolio-details .testimonial-item {
+  padding: 30px;
+  margin: 30px 0;
+  background: #f8f9fa;
+  border-radius: 10px;
+  position: relative;
+}
+
+.portfolio-details .testimonial-item span {
+  display: block;
+  line-height: 1.8;
+  color: var(--text-main);
+}
+
+.portfolio-details .portfolio-info {
+  padding: 30px;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.05);
+  background: #fff;
+  border-radius: 10px;
+}
+
+.portfolio-details .portfolio-info h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  font-family: var(--nav-font);
+}
+
+.portfolio-details .portfolio-info ul {
+  font-size: 15px;
+}
+
+.portfolio-details .portfolio-info ul li {
+  padding-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.portfolio-details .portfolio-info ul strong {
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.portfolio-details .portfolio-info ul li p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0 0 0;
+}
+
+.portfolio-details .portfolio-info ul li p:hover img {
+  filter: grayscale(0);
+}
+
+
+
+/* ==========================================================================
+   7. Portfolio Details Navigation (하단 이전/다음 버튼 애니메이션)
+   ========================================================================== */
+.portfolio-nav-links a {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* 화살표 및 글자 색상 변화 */
+.portfolio-nav-links a:hover i,
+.portfolio-nav-links a:hover .text-navy {
+  color: var(--accent-color) !important;
+  /* 마우스 올리면 시그니처 블루로 변경 */
+}
+
+/* PREVIOUS 버튼: 마우스 올리면 왼쪽으로 살짝 이동 */
+.portfolio-nav-links a.text-start:hover {
+  transform: translateX(-5px);
+}
+
+/* NEXT 버튼: 마우스 올리면 오른쪽으로 살짝 이동 */
+.portfolio-nav-links a.text-end:hover {
+  transform: translateX(5px);
+}
+
+/* 가운데 그리드 아이콘: 색상만 변경 */
+.portfolio-nav-links a.text-center:hover {
+  transform: translateY(-5px);
+
+}
+
+/* ==========================================================================
+   8. Ultra Small Mobile (320px 등 초소형 화면 최적화)
+   ========================================================================== */
+@media (max-width: 360px) {
+
+  /* 1. 컨택트 하얀 박스 자체의 뚱뚱한 여백(p-5)을 줄입니다. */
+  .contact .contact-info {
+    padding: 2rem 1rem !important;
+  }
+
+  /* 2. 이메일/전화번호 양옆의 마진(mx-4)을 확 줄여 글자 공간을 확보합니다. */
+  .contact .contact-info .mx-4 {
+    margin-left: 0.5rem !important;
+    margin-right: 0.5rem !important;
+  }
+
+  /* 3. 텍스트(이메일, 전화번호 등) 폰트 사이즈를 축소합니다. */
+  .contact .contact-info span {
+    font-size: 0.85rem !important;
+    word-break: break-all;
+    /* 만약 그래도 넘치면 강제로 줄바꿈 하라는 안전장치 */
+  }
+
+  /* 4. 글자가 작아진 만큼 앞의 아이콘 크기도 밸런스에 맞게 줄입니다. */
+  .contact .contact-info i {
+    font-size: 1.2rem !important;
+  }
+}
+
+
+/* Video Container */
+.video-container {
+  width: 100%;
+  max-height: 900px;
+  margin: 0 auto 50px auto;
+  display: block;
+  aspect-ratio: 16/9;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.video-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Contact Section */
+.contact .section-category {
+  font-family: var(--heading-font);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.contact .content h2 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.contact .contact-info .info-item i {
+  color: var(--accent-color);
+  font-size: 1.4rem;
+}
+
+/* Footer */
+.footer {
+  background-color: var(--background-color);
+  font-size: 14px;
+  padding: 40px 0;
+  position: relative;
+  box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.05);
+}
+
+.footer .credits {
+  margin-top: 10px;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* ==========================================================================
+   9. Hero Video Background
+   ========================================================================== */
+.hero-bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* 화면 비율이 달라도 여백 없이 꽉 채움 */
+  z-index: 0;
+}
+
+/* 글자가 잘 보이게 해주는 하얀색 반투명 셀로판지 */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.85);
+  /* 0.85는 투명도. 숫자가 클수록 하얗게 됨 */
+  z-index: 1;
+}
